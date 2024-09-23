@@ -26,6 +26,7 @@ function draw() {
   background(0);
   
   moveBall();
+  mouseWheel();
   bounceBall();
   displayball();
   displaybar();
@@ -90,5 +91,14 @@ function movebar(){
 
   if (rx<= 0 && keyIsPressed){
     rx = 0;
+  }
+}
+
+function mouseWheel(event){
+  if (event.delta > 0 ){
+    rw = 125;
+  }
+  if (event.delta < 0 ){
+    rw = 75;
   }
 }
