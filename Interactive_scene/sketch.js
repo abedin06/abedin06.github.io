@@ -49,7 +49,7 @@ function bounceBall(){
     changecolor();
   }
   
-  else if ((x >= rx && x <= rx+rw) && (y +radius >= windowHeight-rh && y+radius <= windowHeight)){
+  else if ((x+radius > rx && x+radius < rx+rw) && (y +radius > windowHeight-rh && y+radius < windowHeight)){
     dx = dx* 1.005;
     dy = dy*-1.005;
     changecolor();
