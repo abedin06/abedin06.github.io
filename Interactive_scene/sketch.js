@@ -6,7 +6,7 @@
 let x = 200;
 let y = 200;
 let dx = 10;
-let dy = 5
+let dy = 5;
 let radius = 25;
 let r = 255;
 let g = 255;
@@ -14,7 +14,10 @@ let b = 255;
 let rx = 0;
 let rs = 20;
 let rw = 100;
-let rh = 20;
+let rh = 50;
+
+let lastswitch = 0;
+let waitTime = 2000;
     
 
 
@@ -30,15 +33,20 @@ function draw() {
   displayball();
   displaybar();
   movebar();
+
+  if(lastswitch+waitTime < millis()){
+    distractions();
+    lastswitch = millis();
+  }
 }
 
 function moveBall(){
-    x+=dx;
-    y +=dy;
+  x+=dx;
+  y +=dy;
 }
 
 function bounceBall(){
-   //bounce
+
   if (x>= width-radius || x<= radius){
     dx = dx*-1;
     changecolor();
@@ -100,4 +108,21 @@ function mouseWheel(event){
   if (event.delta < 0 ){
     rw =  100;
   }
+}
+
+function distractions(){
+  let colour = color(r,g,b);
+  let ax = random(0,windowWidth);
+  let ay = random(0,windowHeight/2);
+  fill(colour);
+  circle(ax, ay,radius*2);
+
+  if (ay<=windowHeight){
+    ay += 0.5;
+  }
+
+  else{
+    ay -= 0.5;
+  }
+
 }
