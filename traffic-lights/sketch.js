@@ -6,16 +6,16 @@
 // changing according to time. You may want to investigate the millis()
 // function at https://p5js.org/reference/#/p5/millis
 
-let color1;
-let color2;
-let color3;
+let r;
+let g;
+let b;
 let isgreen = true;
 let isyellow = false;
 let isred = false;
 
 let rt = 3000;
-let gt = 3500;
-let yt = 1500;
+let gt = 4000;
+let yt = 2000;
 
 let lastswitch = 0;
 
@@ -39,26 +39,32 @@ function drawOutlineOfLights() {
   rect(width/2, height/2, 75, 200, 10);
 
   //lights
-  fill(color1);
+  fill(r,g,b);
   ellipse(width/2, height/2 - 65, 50, 50); //top
 
-  fill(color2)
+  fill(r,g,b);
   ellipse(width/2, height/2, 50, 50); //middle
 
-  fill(color3)
+  fill(r,g,b);
   ellipse(width/2, height/2 + 65, 50, 50); //bottom
 }
 
 function changecolor(){
   if (millis() > lastswitch+gt){
-    isyellow = !isyellow
+    isgreen = false;
+    isyellow = true;
+    isred = false;
   }
   if(millis() > lastswitch+yt+gt){
-    isred = !isred;
+    isyellow = false;
+    isred = true;
+    isgreen = false;
   }
 
   if(millis()> lastswitch+yt+gt+rt){
-    isgreen = !isgreen;
+    isred = false;
+    isgreen = true;
+    isyellow = false;
     lastswitch = millis();
   }
 
@@ -66,21 +72,22 @@ function changecolor(){
 
 function dictatecolor(){
   if (isgreen){
-    color1 = 0,255,0;
-    color2 = 0,0,0;
-    color3 = 0,0,0;
+    r = 0;
+    g = 255;
+    b = 0;
   }
 
-  if (isyellow){
-    color1= 0,0,0;
-    color2= 255,255,0;
-    color3= 0,0,0;
+  else if (isyellow){
+    r = 255;
+    g = 255;
+    b = 0;
+
   }
 
-  if (isred){
-    color1= 0,0,0;
-    color2= 0,0,0;
-    color3= 255,0,0;
+  else if (isred){
+    r = 255;
+    g = 0;
+    b = 0;
   }
 
 }
