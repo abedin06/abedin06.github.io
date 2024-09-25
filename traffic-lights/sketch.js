@@ -6,9 +6,7 @@
 // changing according to time. You may want to investigate the millis()
 // function at https://p5js.org/reference/#/p5/millis
 
-let r;
-let g;
-let b;
+
 let isgreen = true;
 let isyellow = false;
 let isred = false;
@@ -39,13 +37,9 @@ function drawOutlineOfLights() {
   rect(width/2, height/2, 75, 200, 10);
 
   //lights
-  fill(r,g,b);
+  fill("white");
   ellipse(width/2, height/2 - 65, 50, 50); //top
-
-  fill(r,g,b);
   ellipse(width/2, height/2, 50, 50); //middle
-
-  fill(r,g,b);
   ellipse(width/2, height/2 + 65, 50, 50); //bottom
 }
 
@@ -72,22 +66,19 @@ function changecolor(){
 
 function dictatecolor(){
   if (isgreen){
-    r = 0;
-    g = 255;
-    b = 0;
+    fill("green");
+    ellipse(width/2, height/2 + 65, 50, 50); //bottom
+
   }
 
   else if (isyellow){
-    r = 255;
-    g = 255;
-    b = 0;
-
+    fill("yellow");
+    ellipse(width/2, height/2, 50, 50); //middle
   }
 
   else if (isred){
-    r = 255;
-    g = 0;
-    b = 0;
+    fill("red");
+    ellipse(width/2, height/2 - 65, 50, 50); //top
   }
 
 }
