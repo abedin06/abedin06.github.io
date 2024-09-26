@@ -5,12 +5,15 @@
 
 let x = 200;
 let y = 200;
+
 let dx = 10;
 let dy = 5;
 let radius = 25;
+
 let r = 255;
 let g = 255;
 let b = 255;
+
 let rx = 0;
 let rs = 20;
 let rw = 100;
@@ -18,6 +21,9 @@ let rh = 50;
 
 let lastswitch = 0;
 let waitTime = 2000;
+
+let ax;
+let ay;
     
 
 
@@ -27,16 +33,15 @@ function setup() {
 
 function draw() {
   background(0);
-  
-  moveBall();
-  bounceBall();
+  bounceballoffbar();
   displayball();
+  moveBall();
+  bounceBall(x,y);
   displaybar();
   movebar();
 
-  if(lastswitch+waitTime < millis()){
+  for(let i = 0; i<5 ; i++){
     distractions();
-    lastswitch = millis();
   }
 }
 
@@ -45,23 +50,26 @@ function moveBall(){
   y +=dy;
 }
 
-function bounceBall(){
+function bounceBall(xcor,ycor){
 
-  if (x>= width-radius || x<= radius){
+  if (xcor>= windowWidth-radius || xcor<= radius){
     dx = dx*-1;
     changecolor();
   }
   
-  else if (y>= height-radius || y <= radius){
+  else if (ycor>= windowHeight-radius || ycor <= radius){
     dy = dy *-1; 
     changecolor();
   }
-  
-  else if ((x+radius > rx && x+radius < rx+rw) && (y +radius > windowHeight-rh && y+radius < windowHeight)){
+}
+
+function bounceballoffbar(){
+  if ((x+radius > rx && x+radius < rx+rw) && (y +radius > windowHeight-rh && y+radius < windowHeight)){
     dx = dx* 1.005;
     dy = dy*-1.005;
     changecolor();
   }
+
 }
 
 function displayball(){
@@ -79,7 +87,7 @@ function changecolor(){
 
 function displaybar(){
   fill(255);
-  rect(rx,windowHeight-rh,rw,rh);
+  rect(rx,windowHeight-rh,rw,rh,5);
 }
 
 function movebar(){
@@ -103,26 +111,18 @@ function movebar(){
 
 function mouseWheel(event){
   if (event.delta > 0 ){
-    rw = 125;
+    rw = 100;
   }
   if (event.delta < 0 ){
-    rw =  100;
+    rw =  125;
   }
 }
 
 function distractions(){
   let colour = color(r,g,b);
   let ax = random(0,windowWidth);
-  let ay = random(0,windowHeight/2);
+  let ay = random(0,windowHeight);
   fill(colour);
   circle(ax, ay,radius*2);
-
-  if (ay<=windowHeight){
-    ay += 0.5;
-  }
-
-  else{
-    ay -= 0.5;
-  }
 
 }
