@@ -22,6 +22,9 @@ let rh = 50;
 let lastswitch = 0;
 let waitTime = 2000;
 
+let listX = [x];
+let listY = [y];
+
 let ax;
 let ay;
     
@@ -34,9 +37,7 @@ function setup() {
 function draw() {
   background(0);
   bounceballoffbar();
-  displayball();
-  moveBall();
-  bounceBall(x,y);
+  display_and_moveball();
   displaybar();
   movebar();
 
@@ -45,24 +46,60 @@ function draw() {
   }
 }
 
-function moveBall(){
-  x+=dx;
-  y +=dy;
+
+
+
+//X coordinate operations
+
+function moveBallx(X){
+  X+=dx;
 }
 
-function bounceBall(xcor,ycor){
+function bounceX(xcor){
 
   if (xcor>= windowWidth-radius || xcor<= radius){
     dx = dx*-1;
     changecolor();
   }
-  
-  else if (ycor>= windowHeight-radius || ycor <= radius){
+}
+
+function RandomX(){
+  let rand_x = random(0,windowWidth);
+  return rand_x;
+}
+
+function addXtolist(some_x){
+  listX.push(some_x);
+}
+
+
+
+//Y coordinate operations
+
+function bounceY(ycor){
+  if (ycor>= windowHeight-radius || ycor <= radius){
     dy = dy *-1; 
     changecolor();
   }
 }
 
+function moveBally(Y){
+  Y+=dy;
+}
+
+function RandomY(){
+  let rand_y = random(0,windowHeight);
+  return rand_y;
+}
+
+function addYtolist(some_y){
+  listY.push(some_y);
+}
+
+
+
+
+// Other Functions
 function bounceballoffbar(){
   if ((x+radius > rx && x+radius < rx+rw) && (y +radius > windowHeight-rh && y+radius < windowHeight)){
     dx = dx* 1.005;
@@ -72,10 +109,17 @@ function bounceballoffbar(){
 
 }
 
-function displayball(){
+function display_and_moveball(){
   let colour = color(r,g,b);
   fill(colour);
-  circle(x,y,radius*2);
+
+  for(let i = 0; i < listX.length ; i++ ){
+    circle(listX[i],listY[i],radius*2);
+    moveBallx(listX[i]);
+    moveBally(listY[i]);
+    bounceX([listX[i]]);
+    bounceY([listY[i]]);
+  }
 }
 
 function changecolor(){
@@ -124,5 +168,4 @@ function distractions(){
   let ay = random(0,windowHeight);
   fill(colour);
   circle(ax, ay,radius*2);
-
 }
