@@ -19,14 +19,14 @@ let rs = 20;
 let rw = 100;
 let rh = 50;
 
-let lastswitch = 0;
-let waitTime = 2000;
+let flash_on = 10000;
 
-let listX = [x];
-let listY = [y];
+let screenState = "Homescreen";
 
-let ax;
-let ay;
+let lives = 15;
+
+
+
     
 
 
@@ -35,71 +35,37 @@ function setup() {
 }
 
 function draw() {
-  background(0);
-  bounceballoffbar();
-  display_and_moveball();
-  displaybar();
-  movebar();
-
-  for(let i = 0; i<5 ; i++){
-    distractions();
-  }
+  gameState();
+  changeState();
 }
 
 
+// Movement Functions
 
-
-//X coordinate operations
-
-function moveBallx(X){
-  X+=dx;
+function moveBall(){
+  x+=dx;
+  y+=dy;
 }
 
-function bounceX(xcor){
+function bounceBall(){
 
-  if (xcor>= windowWidth-radius || xcor<= radius){
+  if (x>= windowWidth-radius || x<= radius){
     dx = dx*-1;
     changecolor();
   }
-}
 
-function RandomX(){
-  let rand_x = random(0,windowWidth);
-  return rand_x;
-}
+  if (y>= windowHeight-radius){
+    dy = dy *-1;
+    lives -= 1;
+    changecolor();
+  }
 
-function addXtolist(some_x){
-  listX.push(some_x);
-}
-
-
-
-//Y coordinate operations
-
-function bounceY(ycor){
-  if (ycor>= windowHeight-radius || ycor <= radius){
-    dy = dy *-1; 
+  if(y<=radius){
+    dy = dy*-1;
     changecolor();
   }
 }
 
-function moveBally(Y){
-  Y+=dy;
-}
-
-function RandomY(){
-  let rand_y = random(0,windowHeight);
-  return rand_y;
-}
-
-function addYtolist(some_y){
-  listY.push(some_y);
-}
-
-
-
-
-// Other Functions
 function bounceballoffbar(){
   if ((x+radius > rx && x+radius < rx+rw) && (y +radius > windowHeight-rh && y+radius < windowHeight)){
     dx = dx* 1.005;
@@ -107,31 +73,6 @@ function bounceballoffbar(){
     changecolor();
   }
 
-}
-
-function display_and_moveball(){
-  let colour = color(r,g,b);
-  fill(colour);
-
-  for(let i = 0; i < listX.length ; i++ ){
-    circle(listX[i],listY[i],radius*2);
-    moveBallx(listX[i]);
-    moveBally(listY[i]);
-    bounceX([listX[i]]);
-    bounceY([listY[i]]);
-  }
-}
-
-function changecolor(){
-  r = random(0,255);
-  g = random(0,255);
-  b = random(0,255);
-  
-}
-
-function displaybar(){
-  fill(255);
-  rect(rx,windowHeight-rh,rw,rh,5);
 }
 
 function movebar(){
@@ -153,6 +94,38 @@ function movebar(){
   }
 }
 
+
+//Display functions
+
+
+function displaybar(){
+  fill(255);
+  rect(rx,windowHeight-rh,rw,rh,5);
+}
+
+function displayBall(){
+  let colour = color(r,g,b);
+  fill(colour);
+  circle(x,y,radius*2);
+}
+
+function changecolor(){
+  r = random(0,255);
+  g = random(0,255);
+  b = random(0,255);
+  
+}
+
+function distractions(){
+  let ax = random(0,windowWidth);
+  let ay = random(0,windowHeight);
+  let colour = color(random(125,255),random(125,255),random(125,255));
+  fill(colour);
+  circle(ax, ay,radius*2);
+}
+
+//Mousewheel
+
 function mouseWheel(event){
   if (event.delta > 0 ){
     rw = 100;
@@ -162,10 +135,59 @@ function mouseWheel(event){
   }
 }
 
-function distractions(){
-  let colour = color(r,g,b);
-  let ax = random(0,windowWidth);
-  let ay = random(0,windowHeight);
-  fill(colour);
-  circle(ax, ay,radius*2);
+//Game state functions
+
+function gameState(){
+  if (screenState === "Homescreen"){
+    background(255);
+    textSize(50);
+    textAlign(CENTER, TOP);
+    text('Press S to start',windowWidth/2,windowHeight/2-75);
+
+
+    textSize(30);
+    textAlign(CENTER);
+    text('Ball hitting bottom of screen leads to loss of lives',windowWidth/2,windowHeight/2);
+
+    textSize(20)
+    textAlign(CENTER,BASELINE);
+    text('You get 15 lives',windowWidth/2,windowHeight/2 +50);
+  }
+
+  if(screenState === "Startgame"){
+    background(0);
+    displayBall();
+    displaybar();
+    moveBall()
+    bounceBall();
+    bounceballoffbar();
+    movebar();
+
+    if (millis() > flash_on){
+      for (let i = 0; i < 5; i++){
+        distractions();}}
+  
+
+    if(millis()> 3*flash_on){
+      for (let i = 0; i < 10; i++){
+        distractions();
+      }}}
+
+  if(screenState === "EndScreen"){
+    background(255);
+    textSize(50);
+    textAlign(CENTER);
+    text('Game Over',windowWidth/2,windowHeight/2);
+  }
 }
+
+function changeState(){
+  if (keyIsDown(83)){
+    screenState = "Startgame";
+  }
+
+  if (lives<=0){
+    screenState = "EndScreen";
+  }
+}
+
