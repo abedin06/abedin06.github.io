@@ -1,4 +1,6 @@
 // Interactive Game
+// Use left right arrows to move
+//Extras for experts - mousewheel function(increases and decreases size of the bar)
 // Araddho Abedin
 // Sept 20
 
@@ -18,6 +20,8 @@ let rx = 0;
 let rs = 20;
 let rw = 100;
 let rh = 50;
+
+let score = 0;
 
 let flash_on = 10000;
 
@@ -67,9 +71,10 @@ function bounceBall(){
 }
 
 function bounceballoffbar(){
-  if ((x+radius > rx && x+radius < rx+rw) && (y +radius > windowHeight-rh && y+radius < windowHeight)){
-    dx = dx* 1.005;
-    dy = dy*-1.005;
+  if (x+radius > rx && x+radius < rx+rw && (y +radius > windowHeight-rh && y+radius < windowHeight)){
+    dx = dx* 1.01;
+    dy = dy*-1.01;
+    score +=10;
     changecolor();
   }
 
@@ -103,6 +108,16 @@ function displaybar(){
   rect(rx,windowHeight-rh,rw,rh,5);
 }
 
+function displayscore(){
+  textSize(30);
+  text(score, windowWidth-100,50);
+}
+
+function displaylives(){
+  textSize(30);
+  text(lives,100,50);
+}
+
 function displayBall(){
   let colour = color(r,g,b);
   fill(colour);
@@ -110,9 +125,9 @@ function displayBall(){
 }
 
 function changecolor(){
-  r = random(0,255);
-  g = random(0,255);
-  b = random(0,255);
+  r = random(125,255);
+  g = random(125,255);
+  b = random(125,255);
   
 }
 
@@ -142,42 +157,54 @@ function gameState(){
     background(255);
     textSize(50);
     textAlign(CENTER, TOP);
-    text('Press S to start',windowWidth/2,windowHeight/2-75);
+    text("Press S to start",windowWidth/2,windowHeight/2-75);
 
 
     textSize(30);
     textAlign(CENTER);
-    text('Ball hitting bottom of screen leads to loss of lives',windowWidth/2,windowHeight/2);
+    text("Ball hitting bottom of screen leads to loss of lives",windowWidth/2,windowHeight/2);
 
-    textSize(20)
+    textSize(20);
     textAlign(CENTER,BASELINE);
-    text('You get 15 lives',windowWidth/2,windowHeight/2 +50);
+    text("You get 15 lives",windowWidth/2,windowHeight/2 +50);
   }
 
   if(screenState === "Startgame"){
     background(0);
     displayBall();
     displaybar();
-    moveBall()
+    moveBall();
     bounceBall();
     bounceballoffbar();
     movebar();
+    displayscore();
+    displaylives();
 
     if (millis() > flash_on){
       for (let i = 0; i < 5; i++){
-        distractions();}}
+        distractions();
+      }
+    }
   
 
     if(millis()> 3*flash_on){
       for (let i = 0; i < 10; i++){
         distractions();
-      }}}
+      }
+      if (millis()>4.5*flash_on){
+        for(let i = 0; i < 20; i++){
+          distractions();
+        }
+      }
+
+    }
+  }
 
   if(screenState === "EndScreen"){
     background(255);
     textSize(50);
     textAlign(CENTER);
-    text('Game Over',windowWidth/2,windowHeight/2);
+    text("Game Over",windowWidth/2,windowHeight/2);
   }
 }
 
