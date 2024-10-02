@@ -1,4 +1,4 @@
-// Interactive Game
+// Interactive Game - "Glitchball Ultimate"
 // Use left right arrows to move
 //Extras for experts - mousewheel function(increases and decreases size of the bar)
 // Araddho Abedin
