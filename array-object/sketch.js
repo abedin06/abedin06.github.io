@@ -25,7 +25,7 @@ function draw() {
     rect(otherRect.x,otherRect.y,otherRect.w,otherRect.h);
   }
   for (let someRect of terrain){
-    stroke("green");
+    stroke("lightgreen");
     rect(someRect.x,someRect.y,someRect.w,someRect.h);
   }
 
