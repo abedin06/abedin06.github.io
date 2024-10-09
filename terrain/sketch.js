@@ -15,7 +15,7 @@ function draw() {
   background(220);
   for (let someRect of terrain){
 
-    stroke("green");
+    stroke("black");
     rect(someRect.x,someRect.y,someRect.w,someRect.h);
   }
 }
