@@ -11,14 +11,36 @@ let another_terrain = [];
 let yet_another_terrain = [];
 const NUMBER_OF_RECTS = 10000;
 
+let targetX;
+let targetY;
+
+let targetsize = 100;
+
+let playerX;
+let playerY;
+
+let playerSize = 20;
+
+let playerSpeed;
+let playerAngle;
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  targetX = random(width/2,width-100);
+  targetY = random(50,height-50);
+
+  playerX = random(50,width/2-50);
+  playerY = random(200,height-200);
+
 }
 
 function draw() {
-  background(220);
+  background("lightgreen");
 
+
+
+  // Generate terrain
   let how_wide = width/NUMBER_OF_RECTS;
   generate_terrain(how_wide);
 
@@ -32,7 +54,29 @@ function draw() {
     rect(anotherRect.x,anotherRect.y,anotherRect.w,anotherRect.h);
   }
 
+
+  displayTarget();
+  displayPlayer();
+
+  playerSpeed = prompt("Please enter your launch speed");
+  playerAngle = prompt("Please enter your launch angle");
 }
+
+
+function displayTarget(){
+  fill("white");
+  square(targetX,targetY,targetsize);
+}
+
+function displayPlayer(){
+  fill("red");
+  circle(playerX,playerY,playerSize*2);
+}
+
+
+
+
+// Terrain generation functions
 
 function generate_terrain(theWidth){
 
