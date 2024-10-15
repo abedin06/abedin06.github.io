@@ -21,17 +21,26 @@ let playerY;
 
 let playerSize = 20;
 
-let playerSpeed;
-let playerAngle;
+let v0; //intial speed
+let theta; //launch angle
+
+const G = -9.81;
+
+let value_entered = false;
+
+let vy;
+
+let counter = 0;
+
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  targetX = random(width/2,width-100);
-  targetY = random(50,height-50);
+  targetX = Math.round(random(width/2,width-100));
+  targetY = Math.round(random(50,height-50));
 
-  playerX = random(50,width/2-50);
-  playerY = random(200,height-200);
+  playerX = Math.round(random(50,width/2-50));
+  playerY = Math.round(random(200,height-200));
 
 }
 
@@ -57,12 +66,13 @@ function draw() {
 
   displayTarget();
   displayPlayer();
-
-  playerSpeed = prompt("Please enter your launch speed");
-  playerAngle = prompt("Please enter your launch angle");
+  displayPrompt();
+  displayGameInfo();
+  start_moving();
 }
 
 
+// Display functions
 function displayTarget(){
   fill("white");
   square(targetX,targetY,targetsize);
@@ -71,6 +81,26 @@ function displayTarget(){
 function displayPlayer(){
   fill("red");
   circle(playerX,playerY,playerSize*2);
+}
+
+function displayPrompt(){
+  if (keyIsDown(70)){
+    v0 = prompt("Please enter your launch speed");
+    theta = prompt("Please enter your launch angle");
+    value_entered = true;
+  }
+}
+
+function displayGameInfo(){
+  fill("black");
+  textSize(30);
+  text(targetX+targetsize/2,width-100,50);
+  text(targetY+targetsize/2,width-100,85);
+  
+  fill("red");
+  textSize(30);
+  text(playerX,100,50);
+  text(playerY,100,85);
 }
 
 
@@ -102,4 +132,20 @@ function spawnRectangle(leftside, rectHeight, rectWidth){
     h: rectHeight,
   };
   return theRect;
+}
+
+// Game functions
+
+function moveball(){
+  playerX += 1;
+  counter += 1;
+  playerY -= G*counter*(v0*Math.cos(theta))**-2 + Math.tan(theta);
+}
+
+
+
+function start_moving(){
+  if(value_entered){
+    moveball();
+  }
 }
