@@ -159,7 +159,7 @@ function give_up(){
     theta = 45;
     let x_interval = targetX+targetsize/2 - playerX;
     let y_interval = playerY - (targetY+targetsize/2);
-    v0 = (1/Math.cos(35)) * ((-0.5* G* x_interval**2) / (y_interval-x_interval*Math.tan(theta)) )**0.5;
+    v0 = 1/Math.cos(35) * (-0.5* G* x_interval**2 / (y_interval-x_interval*Math.tan(theta)) )**0.5;
   }
   moveball();
 }
