@@ -24,13 +24,13 @@ let playerSize = 20;
 let v0; //intial speed
 let theta; //launch angle
 
-const G = -9.81;
+const G = -0.0981;
 
 let value_entered = false;
 
 let vy;
 
-let counter = 0;
+let time = 0;
 let terrainGraphics;
 
 
@@ -143,9 +143,10 @@ function spawnRectangle(leftside, rectHeight, rectWidth){
 // Game functions
 
 function moveball(){
-  playerX += 1;
-  counter += 1;
-  playerY -= G*counter*(v0*Math.cos(theta))**-2 + Math.tan(theta);
+
+  time += 1/60;
+  playerX += Math.cos(theta)*v0;
+  playerY -= v0*Math.sin(theta) + G*(time/60);
 }
 
 function start_moving(){
