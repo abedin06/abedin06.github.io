@@ -24,7 +24,7 @@ let playerSize = 20;
 let v0; //intial speed
 let theta; //launch angle
 
-const G = -0.0981;
+const G = -9.81;
 
 let value_entered = false;
 
@@ -42,6 +42,8 @@ function setup() {
 
   playerX = Math.round(random(50,width/2-50));
   playerY = Math.round(random(200,height-200));
+
+  angleMode(DEGREES);
 
   // Generate terrain
   let how_wide = width/NUMBER_OF_RECTS;
@@ -146,7 +148,7 @@ function moveball(){
 
   time += 1/60;
   playerX += Math.cos(theta)*v0;
-  playerY -= v0*Math.sin(theta) + G*(time/60);
+  playerY -= v0*Math.sin(theta) + G*time;
 }
 
 function start_moving(){
