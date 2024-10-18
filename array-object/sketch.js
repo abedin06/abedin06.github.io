@@ -28,8 +28,6 @@ const G = -9.81;
 
 let value_entered = false;
 
-let vy;
-
 let time = 0;
 let terrainGraphics;
 
@@ -77,7 +75,9 @@ function draw() {
   displayPrompt();
   displayGameInfo();
   start_moving();
-  //give_up();
+  if (keyIsDown(76)){
+    give_up();
+  }
 }
 
 
@@ -144,25 +144,23 @@ function spawnRectangle(leftside, rectHeight, rectWidth){
 
 // Game functions
 
-function moveball(){
+function moveball(launch_angle,launch_speed){
 
   time += 1/60;
-  playerX += Math.cos(theta)*v0;
-  playerY -= v0*Math.sin(theta) + G*time;
+  playerX += cos(launch_angle)*launch_speed;
+  playerY -= v0*sin(launch_angle) + G*time;
 }
 
 function start_moving(){
   if(value_entered){
-    moveball();
+    moveball(theta,v0);
   }
 }
 
 function give_up(){
-  if (keyIsDown(76)){
-    theta = 45;
-    let x_interval = targetX+targetsize/2 - playerX;
-    let y_interval = playerY - (targetY+targetsize/2);
-    v0 = 1/Math.cos(35) * (-0.5* G* x_interval**2 / (y_interval-x_interval*Math.tan(theta)) )**0.5;
-  }
-  moveball();
+  let langle = 45;
+  let x = targetX+targetsize/2 - playerX;
+  let y = playerY - (targetY+targetsize/2);
+  let lspeed = 1/cos(theta) * (0.5*G*x*x/(x*tan(theta)-y))**1/2;
+  moveball(langle,lspeed);
 }
