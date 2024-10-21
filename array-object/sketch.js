@@ -1,9 +1,14 @@
-// Project Title
-// Your Name
-// Date
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Canonball Simulator
+// Araddho Abedin
+// October 21st
+
+// Extra for Experts: sin, cos, tan. parseInt and parseFloat
+
+// Project description: The canonball simulator emulates the real life behaviour of projectiles. Using the X and Y values
+// given by the program the player has to calculate the initial velocity and angle at which they would have to launch the ball
+// to hit the target. You can click L keay to reveal the answer parabola. Hit the ball through the strength of your calculations
+// and you will win, otherwise suffer humilliating defeat.
+
 
 
 
@@ -174,6 +179,8 @@ function give_up(){
   lspeed = 1/cos(langle) * Math.sqrt(0.5*G*x*x/(y-x*tan(langle)));
   moveball(langle,lspeed);
 }
+
+
 
 // Gamestate functions
 
