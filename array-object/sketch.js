@@ -11,32 +11,33 @@
 
 
 
-
+// Arrays for terrain generation
 let another_terrain = [];
 let yet_another_terrain = [];
 const NUMBER_OF_RECTS = 10000;
 
+// Co-ordinates and size of target rectangle
 let targetX;
 let targetY;
-
 let targetsize = 100;
 
+// Co-ordinates and size of player circle
 let playerX;
 let playerY;
-
 let playerSize = 20;
 
 let v0; //intial speed
 let theta; //launch angle
 
-const G = -9.81;
+const G = -9.81;//Gravitational Acceleration
 
-let time = 0;
+let time = 0;// Time to make the kinematics work
 let terrainGraphics;
 
 let langle; //program generated launch angle
 let lspeed;// program generated launch speed
 
+//State variables
 let screenState = "homescreen";
 let struck_target = false;
 let decision = "nothing";
@@ -45,9 +46,11 @@ let decision = "nothing";
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  //Randomly generate target position
   targetX = Math.round(random(width/2,width-100));
   targetY = Math.round(random(50,height-50));
 
+  //Randomly generate player position
   playerX = Math.round(random(50,width/2-50));
   playerY = Math.round(random(200,height-200));
 
@@ -158,7 +161,7 @@ function spawnRectangle(leftside, rectHeight, rectWidth){
 // Ball movement functions
 
 function moveball(launch_angle,launch_speed){
-
+  //Move the ball after player has entered the values
   time += 1/6;
   playerX += cos(launch_angle)*launch_speed/6;
   playerY -= (launch_speed*sin(launch_angle) + G*time)/6;
@@ -175,6 +178,7 @@ function start_moving(){
 }
 
 function give_up(){
+  //Move ball after the player has pressed L
   langle = 60;
   lspeed = 1/cos(langle) * Math.sqrt(0.5*G*x*x/(y-x*tan(langle)));
   moveball(langle,lspeed);
@@ -257,6 +261,7 @@ function ChangeState(){
 }
 
 function hit_target(){
+  //See if the player ball has hit or gone through the target
   if (playerX+playerSize >= targetX && playerX+playerSize <= targetX+targetsize 
     && playerY+playerSize >= targetY && playerY+playerSize <= targetY+targetsize){
     struck_target = true;
