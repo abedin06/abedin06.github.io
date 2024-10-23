@@ -11,6 +11,7 @@
 let grid;
 const GRID_SIZE = 10;
 let cell_size;
+let toggle = true;
 
 function setup() {
 
@@ -37,6 +38,10 @@ function keyPressed(){
 
   if(key === "e"){
     grid = generateEmptyGrid(GRID_SIZE,GRID_SIZE);
+  }
+
+  if(key === "n"){
+    toggle = !toggle;
   }
 }
 
@@ -86,5 +91,42 @@ function generateEmptyGrid(columns,rows){
 }
 
 function mousePressed(){
+  let x = Math.floor(mouseX/cell_size);
+  let y = Math.floor(mouseY/cell_size);
 
+
+  //Toggle self
+  changecolor(x,y);
+
+  //Toggle neighboursr
+  if(toggle){
+    changecolor(x+1,y);
+    changecolor(x,y+1);
+    changecolor(x,y-1);
+    changecolor(x-1,y);
+  }
 }
+
+function windowResized(){
+  if(windowWidth < windowHeight){
+    resizeCanvas(windowWidth,windowWidth);
+  }
+
+  else{
+    resizeCanvas(windowHeight, windowHeight);
+  }
+  cell_size = height/GRID_SIZE;
+}
+
+function changecolor(some_x,some_y){
+  //BS checker
+  if (some_x >=0 && some_y >=0 && some_x < GRID_SIZE && some_y < GRID_SIZE){
+    if(grid[some_y][some_x] ===1){
+      grid[some_y][some_x] = 0;
+    }
+    else{
+      grid[some_y][some_x] = 1;
+    }
+  }
+}
+
