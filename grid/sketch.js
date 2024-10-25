@@ -9,7 +9,7 @@
 
 
 let grid;
-const GRID_SIZE = 10;
+const GRID_SIZE = 40;
 let cell_size;
 let toggle = true;
 
