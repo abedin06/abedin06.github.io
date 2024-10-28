@@ -6,7 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 
-const CELL_SIZE = 25;
+const CELL_SIZE = 5;
 let grid;
 let rows;
 let columns;
@@ -17,6 +17,7 @@ function setup() {
   columns = Math.floor(width/CELL_SIZE);
   rows = Math.floor(height/CELL_SIZE);
   grid = generateRandomGrid(columns, rows);
+  angleMode = DEGREES;
 }
 
 function draw() {
@@ -41,7 +42,7 @@ function generateRandomGrid(columns,rows){
 function displayGrid(){
   for (let y = 0; y < rows; y ++){
     for(let x = 0; x < columns; x ++){
-      if (x+ y > 10 && x+ y < 30 || x+y > 50 && x+y <75){
+      if ( 0.5*y === 50+Math.round(sin(x))){
         fill(random(0,255),random(0,255),random(0,255));
       }
 
