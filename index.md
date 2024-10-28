@@ -12,6 +12,8 @@
 - [Sound Effects Demo](sound-fx)
 - [Translate and Rotate](rotate)
 - [Grid Demo](grid)
+- [Game of Life](game-of-life)
+- [Rectangle Grid](rectangle-grid)
 
   
 
