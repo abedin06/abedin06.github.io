@@ -5,6 +5,7 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+
 const CELL_SIZE = 25;
 let grid;
 let rows;
@@ -40,10 +41,11 @@ function generateRandomGrid(columns,rows){
 function displayGrid(){
   for (let y = 0; y < rows; y ++){
     for(let x = 0; x < columns; x ++){
-      if(grid[y][x] === 1){
-        fill("black");
+      if (x+ y > 10 && x+ y < 30 || x+y > 50 && x+y <75){
+        fill(random(0,255),random(0,255),random(0,255));
       }
-      else if(grid[y][x] === 0){
+
+      else{
         fill("white");
       }
       noStroke();
@@ -51,7 +53,3 @@ function displayGrid(){
     }
   }
 }
-
-
-
-
