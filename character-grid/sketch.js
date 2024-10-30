@@ -106,7 +106,7 @@ function displaygrid(){
         image(grassImg,x*cell_size,y*cell_size,cell_size,cell_size);
       }
       else if(grid[y][x] === OPEN_TILE){
-        image(pathImg,x*cell_size,y*cell_size,cell_size,cell_size)
+        image(pathImg,x*cell_size,y*cell_size,cell_size,cell_size);
       }
 
       else if(grid[y][x] === PLAYER_TILE){
