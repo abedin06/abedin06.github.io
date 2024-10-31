@@ -24,8 +24,8 @@ function setup() {
   rows = Math.floor(height/CELL_SIZE);
   columns = Math.floor(width/CELL_SIZE);
   grid = generateGrid(rows,columns);
-
   grid[player.y][player.x] = PLAYER_TILE;
+  
 }
 
 function draw() {
@@ -80,37 +80,9 @@ function keyPressed(){
   if(key === "o"){
     playerColor = "black";
   }
-
-  if(key === "UP_ARROW"){
-    //move up
-    movePlayer(player.x,player.y-1);
-  }
-
-  if(key === "DOWN_ARROW"){
-    //move down
-    movePlayer(player.x,player.y+1);
-  }
-
-  if(key === "RIGHT_ARROW"){
-    //move right
-    movePlayer(player.x+1,player.y);
-  }
-
-  if(key === "LEFT_ARROW"){
-    //move left
-    movePlayer(player.x-1,player.y);
-  }
 }
 
-function movePlayer(x,y){
-  if (x>=0 && x < GRID_SIZE && y>=0 && y < GRID_SIZE && grid[y][x] === OPEN_TILE){
-    //keep track of player location
+function movePlayer(some_x,some_y){
   
-    player.x = x;
-    player.y = y;
-  
-    //put player in grid
-    grid[player.y][player.x] = PLAYER_TILE;
-  }
 }
 
