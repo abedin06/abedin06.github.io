@@ -18,6 +18,8 @@ let player = {
   y: 20,
 };
 
+let playerColor = "red";
+
 
 
 
@@ -74,6 +76,22 @@ function keyPressed(){
     //move left
     movePlayer(player.x-1,player.y);
   }
+
+  if(key === "w"){
+    playerColor = "white";
+  }
+
+  if(key === "r"){
+    playerColor = "red";
+  }
+
+  if(key === "b"){
+    playerColor = "blue";
+  }
+
+  if(key === "g"){
+    playerColor = "green";
+  }
 }
 
 function movePlayer(x,y){
@@ -98,10 +116,10 @@ function displaygrid(){
       }
 
       else if(grid[y][x] === PLAYER_TILE){
-        fill("blue");
+        fill(playerColor);
       }
 
-      square(x*cell_size,y*cell_size,cell_size);
+      circle(x*cell_size,y*cell_size,cell_size);
     }
   }
 }
