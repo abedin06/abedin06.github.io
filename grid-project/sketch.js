@@ -19,6 +19,7 @@ let player = {
 };
 
 let playerColor = "red";
+let moveThisWay = "right";
 
 
 
@@ -55,42 +56,6 @@ function keyPressed(){
 
   if(key === "n"){
     toggle = !toggle;
-  }
-
-  if(keyCode === UP_ARROW){
-    //move up
-    movePlayer(player.x,player.y-1);
-  }
-
-  if(keyCode === DOWN_ARROW){
-    //move down
-    movePlayer(player.x,player.y+1);
-  }
-
-  if(keyCode === RIGHT_ARROW){
-    //move right
-    movePlayer(player.x+1,player.y);
-  }
-
-  if(keyCode === LEFT_ARROW){
-    //move left
-    movePlayer(player.x-1,player.y);
-  }
-
-  if(key === "w"){
-    playerColor = "white";
-  }
-
-  if(key === "r"){
-    playerColor = "red";
-  }
-
-  if(key === "b"){
-    playerColor = "blue";
-  }
-
-  if(key === "g"){
-    playerColor = "green";
   }
 }
 
@@ -175,15 +140,31 @@ function windowResized(){
   cell_size = height/GRID_SIZE;
 }
 
-function changecolor(some_x,some_y){
-  //BS checker
-  if (some_x >=0 && some_y >=0 && some_x < GRID_SIZE && some_y < GRID_SIZE){
-    if(grid[some_y][some_x] === 0){
-      grid[some_y][some_x] = PLAYER_TILE;
-    }
 
-    else{
-      grid[some_y][some_x] = 0;
-    }
+function updateGrid(){
+  // make a new array to hold the next turn
+
+  let nextTurn = generateEmptyGrid(GRID_SIZE,GRID_SIZE);
+
+  if (moveThisWay === "right"){
+    movePlayer(x+1,y);
+  }
+
+  if(movePlayer === "left"){
+    movePlayer(x-1,y);
+  }
+
+  return nextTurn;
+}
+
+function changeState(){
+  if (moveThisWay === "right" && x === GRID_SIZE){
+    movePlayer(x,y+1);
+    moveThisWay = "left";
+  }
+
+  if(moveThisWay === "left" && x === 0){
+    movePlayer(x,y+1);
+    moveThisWay("right");
   }
 }
