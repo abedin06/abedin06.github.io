@@ -14,8 +14,8 @@ let toggle = false;
 
 const PLAYER_TILE = 10;
 let player = {
-  x: 10,
-  y: 20,
+  x: 0,
+  y: 0,
 };
 
 let playerColor = "red";
@@ -119,7 +119,7 @@ function displaygrid(){
         fill(playerColor);
       }
 
-      circle(x*cell_size,y*cell_size,cell_size);
+      rect(x*cell_size,y*cell_size,cell_size);
     }
   }
 }
