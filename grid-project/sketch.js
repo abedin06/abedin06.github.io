@@ -21,6 +21,8 @@ let player = {
 let playerColor = "red";
 let moveThisWay = "right";
 
+let autoPlayIson = true;
+
 
 
 
@@ -42,6 +44,8 @@ function setup() {
 
 function draw() {
   background(220);
+  changeState();
+  updateGrid();
   displaygrid();
 }
 
@@ -142,29 +146,25 @@ function windowResized(){
 
 
 function updateGrid(){
-  // make a new array to hold the next turn
-
-  let nextTurn = generateEmptyGrid(GRID_SIZE,GRID_SIZE);
-
   if (moveThisWay === "right"){
-    movePlayer(x+1,y);
+    grid[player.y][player.x+1] = PLAYER_TILE;
   }
 
-  if(movePlayer === "left"){
-    movePlayer(x-1,y);
+  if(moveThisWay === "left"){
+    grid[player.y][player.x-1] = PLAYER_TILE;
   }
-
-  return nextTurn;
 }
 
+
+
 function changeState(){
-  if (moveThisWay === "right" && x === GRID_SIZE){
-    movePlayer(x,y+1);
+  if (moveThisWay === "right" && player.x === GRID_SIZE){
+    movePlayer(player.x,player.y+1);
     moveThisWay = "left";
   }
 
-  if(moveThisWay === "left" && x === 0){
-    movePlayer(x,y+1);
-    moveThisWay("right");
+  if(moveThisWay === "left" && player.x === 0){
+    movePlayer(player.x,player.y+1);
+    moveThisWay = "right";
   }
 }

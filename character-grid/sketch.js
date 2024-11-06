@@ -30,11 +30,11 @@ function preload(){
 function setup() {
 
   if(windowWidth < windowHeight){
-    createCanvas(windowWidth,windowWidth);
+    createCanvas(windowWidth*0.8,windowWidth*0.8);
   }
 
   else{
-    createCanvas(windowHeight, windowHeight);
+    createCanvas(windowHeight*0.8, windowHeight*0.8);
   }
   cell_size = height/GRID_SIZE;
   grid = generateRandomGrid(GRID_SIZE,GRID_SIZE);
@@ -166,11 +166,11 @@ function mousePressed(){
 
 function windowResized(){
   if(windowWidth < windowHeight){
-    resizeCanvas(windowWidth,windowWidth);
+    resizeCanvas(windowWidth*0.8,windowWidth*0.8);
   }
 
   else{
-    resizeCanvas(windowHeight, windowHeight);
+    resizeCanvas(windowHeight*0.8, windowHeight*0.8);
   }
   cell_size = height/GRID_SIZE;
 }
