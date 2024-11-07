@@ -54,10 +54,6 @@ function keyPressed(){
     grid = generateRandomGrid(GRID_SIZE,GRID_SIZE);
   }
 
-  if(key === "e"){
-    grid = generateEmptyGrid(GRID_SIZE,GRID_SIZE);
-  }
-
   if(key === "n"){
     toggle = !toggle;
   }
@@ -105,16 +101,6 @@ function generateRandomGrid(columns,rows){
   return newGrid;
 }
 
-function generateEmptyGrid(columns,rows){
-  let newGrid = [];
-  for (let y = 0; y < rows; y++){
-    newGrid.push([]);
-    for (let x = 0; x < columns; x ++){
-      newGrid[y].push(0);
-    }
-  }
-  return newGrid;
-}
 
 function mousePressed(){
   let x = Math.floor(mouseX/cell_size);
@@ -147,11 +133,15 @@ function windowResized(){
 
 function updateGrid(){
   if (moveThisWay === "right"){
-    grid[player.y][player.x+1] = PLAYER_TILE;
+    for(let i = 0; i < GRID_SIZE; i++){
+      grid[player.y][player.x+i] = PLAYER_TILE;
+    }
   }
 
-  if(moveThisWay === "left"){
-    grid[player.y][player.x-1] = PLAYER_TILE;
+  if (moveThisWay === "left"){
+    for(let i = 0; i < GRID_SIZE; i++){
+      grid[player.y][player.x-1] = PLAYER_TILE;
+    }
   }
 }
 
@@ -159,12 +149,14 @@ function updateGrid(){
 
 function changeState(){
   if (moveThisWay === "right" && player.x === GRID_SIZE){
-    movePlayer(player.x,player.y+1);
+    grid[player.x][player.y+1] = PLAYER_TILE;
     moveThisWay = "left";
   }
 
   if(moveThisWay === "left" && player.x === 0){
-    movePlayer(player.x,player.y+1);
+    grid[player.x][player.y+1] = PLAYER_TILE;
     moveThisWay = "right";
   }
 }
+
+
