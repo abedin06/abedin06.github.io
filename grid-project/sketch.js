@@ -7,21 +7,23 @@
 
 
 let grid;
-const GRID_SIZE = 40;
 let cell_size;
 
-let toggle = false;
 
+const GRID_SIZE = 40;
 const PLAYER_TILE = 10;
+
+
 let player = {
   x: 0,
   y: 0,
 };
 
 let playerColor = "red";
-let moveThisWay = "right";
 
-let autoPlayIson = true;
+let move = "right";
+let ceaseMovement = false;
+
 
 
 
@@ -44,9 +46,13 @@ function setup() {
 
 function draw() {
   background(220);
-  changeState();
-  updateGrid();
   displaygrid();
+  if (!ceaseMovement){
+    dictateMovement();
+    movement();
+    changecolor();
+  }
+
 }
 
 function keyPressed(){
@@ -54,9 +60,6 @@ function keyPressed(){
     grid = generateRandomGrid(GRID_SIZE,GRID_SIZE);
   }
 
-  if(key === "n"){
-    toggle = !toggle;
-  }
 }
 
 function movePlayer(x,y){
@@ -101,24 +104,6 @@ function generateRandomGrid(columns,rows){
   return newGrid;
 }
 
-
-function mousePressed(){
-  let x = Math.floor(mouseX/cell_size);
-  let y = Math.floor(mouseY/cell_size);
-
-
-  //Toggle self
-  changecolor(x,y);
-
-  //Toggle neighboursr
-  if(toggle){
-    changecolor(x+1,y);
-    changecolor(x,y+1);
-    changecolor(x,y-1);
-    changecolor(x-1,y);
-  }
-}
-
 function windowResized(){
   if(windowWidth < windowHeight){
     resizeCanvas(windowWidth,windowWidth);
@@ -130,33 +115,41 @@ function windowResized(){
   cell_size = height/GRID_SIZE;
 }
 
-
-function updateGrid(){
-  if (moveThisWay === "right"){
-    for(let i = 0; i < GRID_SIZE; i++){
-      grid[player.y][player.x+i] = PLAYER_TILE;
-    }
+function dictateMovement(){
+  if(player.x === GRID_SIZE-1 && player.y === GRID_SIZE-1){
+    ceaseMovement = !ceaseMovement;
+  }
+  if(move === "right" && player.x === GRID_SIZE-1){
+    movePlayer(player.x, player.y+1);
+    move = "left";
   }
 
-  if (moveThisWay === "left"){
-    for(let i = 0; i < GRID_SIZE; i++){
-      grid[player.y][player.x-1] = PLAYER_TILE;
-    }
+  if(move === "left" && player.x === 0){
+    movePlayer(player.x, player.y+1);
+    move = "right";
+  }
+}
+
+function movement(){
+  if(move === "right"){
+    movePlayer(player.x+1,player.y);
+  }
+
+  if(move === "left"){
+    movePlayer(player.x-1, player.y);
+  }
+}
+
+function changecolor(){
+  if(player.y > GRID_SIZE*0.25){
+    playerColor = "blue";
+  }
+  if(player.y > GRID_SIZE*0.75){
+    playerColor = "green";
   }
 }
 
 
 
-function changeState(){
-  if (moveThisWay === "right" && player.x === GRID_SIZE){
-    grid[player.x][player.y+1] = PLAYER_TILE;
-    moveThisWay = "left";
-  }
-
-  if(moveThisWay === "left" && player.x === 0){
-    grid[player.x][player.y+1] = PLAYER_TILE;
-    moveThisWay = "right";
-  }
-}
 
 
