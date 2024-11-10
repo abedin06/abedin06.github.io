@@ -8,9 +8,11 @@
 
 let grid;
 let cell_size;
+let mona_lisa;
+let starry_night;
 
 
-const GRID_SIZE = 40;
+const GRID_SIZE = 50;
 const PLAYER_TILE = 10;
 
 
@@ -26,7 +28,10 @@ let ceaseMovement = false;
 
 
 
-
+function preload(){
+  mona_lisa = loadImage('Mona_Lisa.jpg');
+  starry_night = loadImage('Starry_night.jpg');
+}
 
 function setup() {
 
@@ -50,9 +55,7 @@ function draw() {
   if (!ceaseMovement){
     dictateMovement();
     movement();
-    changecolor();
   }
-
 }
 
 function keyPressed(){
@@ -81,13 +84,13 @@ function displaygrid(){
     for (let x = 0; x < GRID_SIZE; x++){
       if (grid[y][x] === 0){
         fill("white");
+        rect(x*cell_size,y*cell_size,cell_size);
       }
 
-      else if(grid[y][x] === PLAYER_TILE){
-        fill(playerColor);
+      if(grid[y][x] === PLAYER_TILE){
+        rect(x*cell_size,y*cell_size,cell_size);
+        copy_image(x,y,starry_night);
       }
-
-      rect(x*cell_size,y*cell_size,cell_size);
     }
   }
 }
@@ -147,6 +150,11 @@ function changecolor(){
   if(player.y > GRID_SIZE*0.75){
     playerColor = "green";
   }
+}
+
+function copy_image(some_x,some_y,some_image){
+  copy(some_image,some_x*cell_size, some_y* cell_size, cell_size, cell_size, some_x*cell_size,
+    some_y*cell_size, cell_size, cell_size);
 }
 
 
