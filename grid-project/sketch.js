@@ -10,9 +10,11 @@ let grid;
 let cell_size;
 let mona_lisa;
 let starry_night;
+let last_supper;
+let earring;
 
 
-const GRID_SIZE = 50;
+const GRID_SIZE = 40;
 const PLAYER_TILE = 10;
 
 
@@ -31,17 +33,13 @@ let ceaseMovement = false;
 function preload(){
   mona_lisa = loadImage('Mona_Lisa.jpg');
   starry_night = loadImage('Starry_night.jpg');
+  last_supper = loadImage('Last_Supper.jpg');
+  earring = loadImage('Earring.jpg');
 }
 
 function setup() {
 
-  if(windowWidth < windowHeight){
-    createCanvas(windowWidth,windowWidth);
-  }
-
-  else{
-    createCanvas(windowHeight, windowHeight);
-  }
+  createCanvas(last_supper.width, last_supper.height);
   cell_size = height/GRID_SIZE;
   grid = generateRandomGrid(GRID_SIZE,GRID_SIZE);
 
@@ -89,7 +87,7 @@ function displaygrid(){
 
       if(grid[y][x] === PLAYER_TILE){
         rect(x*cell_size,y*cell_size,cell_size);
-        copy_image(x,y,starry_night);
+        copy_image(x,y,last_supper);
       }
     }
   }
