@@ -42,35 +42,49 @@ function preload(){
   starry_night = loadImage('Starry_night.jpg');
   last_supper = loadImage('Last_Supper.jpg');
   earring = loadImage('Earring.jpg');
+  error = loadImage('error_image.jpg');
 }
 
-function setup() {
+function askUser(){
 
-  art_choice = prompt("What do You want to See? Choose from Mona Lisa, Girl with Earring, Last Supper or Starry Night");
-
+  // Choose which image to draw and canvas dimension based on the user choices
   if(art_choice === "Last Supper"){
     createCanvas(last_supper.width,last_supper.height);
     image_to_draw = last_supper;
   }
 
-  if(art_choice === "Mona Lisa"){
+  else if(art_choice === "Mona Lisa"){
     createCanvas(mona_lisa.width,mona_lisa.height);
     image_to_draw = mona_lisa;
   }
 
-  if(art_choice === "Starry Night"){
+  else if(art_choice === "Starry Night"){
     createCanvas(starry_night.width,starry_night.height);
     image_to_draw = starry_night;
   }
 
-  if(art_choice === "Girl with Earring"){
+  else if(art_choice === "Girl with Earring"){
     createCanvas(earring.width,earring.height);
     image_to_draw = earring;
   }
 
+  else{
+    alert("Try again and type properly. Program is Case Sensitive. Refresh to startb again.");
+    createCanvas(error.width, error.height);
+    image_to_draw = error;
+  }
+
+}
+
+function setup() {
+
+  //Ask the user which image he wants to see
+  art_choice = prompt("What do You want to See? Choose from Mona Lisa, Girl with Earring, Last Supper or Starry Night");
+  askUser();
+
   //Calculate the number of Rows and Columns for the grid
-  Rows = Math.floor(height/CELL_SIZE);
-  Columns = Math.floor(width/CELL_SIZE);
+  Rows = Math.ceil(height/CELL_SIZE);
+  Columns = Math.ceil(width/CELL_SIZE);
   grid = generateRandomGrid(Columns,Rows);
 
   // add player to the grid
