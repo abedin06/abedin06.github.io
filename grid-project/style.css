@@ -1,8 +1,17 @@
-html, body {
+html{
   margin: 0;
   padding: 0;
 }
 
 canvas {
   display: block;
+}
+
+body{
+  background-color: black;
+  box-shadow: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
