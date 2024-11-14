@@ -43,6 +43,7 @@ function preload(){
   last_supper = loadImage('Last_Supper.jpg');
   earring = loadImage('Earring.jpg');
   error = loadImage('error_image.jpg');
+  moveSound = loadSound('soundeffect.wav');
 }
 
 function askUser(){
@@ -133,6 +134,7 @@ function displaygrid(){
 }
 
 function generateRandomGrid(cms,rws){
+  //Generates new grid every time
   let newGrid = [];
   for (let y = 0; y < rws; y++){
     newGrid.push([]);
@@ -149,6 +151,8 @@ function dictateMovement(){
   //Dictate which direction the player moves
 
   if(player.x === Columns-1 && player.y === Rows-1){
+    console.log('here');
+    moveSound.play();
     ceaseMovement = !ceaseMovement;
   }
   if(move === "right" && player.x === Columns-1){
