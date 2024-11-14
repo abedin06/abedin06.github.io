@@ -3,7 +3,7 @@
 // November 13th, 2024
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// -Copying image pixels from the source image using copy()
 
 //Variables
 let grid;
