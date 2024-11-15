@@ -32,6 +32,7 @@ let player = {
 let move = "right";
 let ceaseMovement = false;
 let something = false;
+let errorDisplay = false;
 
 
 
@@ -49,23 +50,24 @@ function preload(){
 function askUser(){
 
   // Choose which image to draw and canvas dimension based on the user choices
+
   if(art_choice === "Last Supper"){
-    createCanvas(last_supper.width,last_supper.height);
+    createCanvas(last_supper.width, last_supper.height);
     image_to_draw = last_supper;
   }
 
   else if(art_choice === "Mona Lisa"){
-    createCanvas(mona_lisa.width,mona_lisa.height);
+    createCanvas(mona_lisa.width, mona_lisa.height);
     image_to_draw = mona_lisa;
   }
 
   else if(art_choice === "Starry Night"){
-    createCanvas(starry_night.width,starry_night.height);
+    createCanvas(starry_night.width, starry_night.height);
     image_to_draw = starry_night;
   }
 
   else if(art_choice === "Girl with Earring"){
-    createCanvas(earring.width,earring.height);
+    createCanvas(earring.width, earring.height);
     image_to_draw = earring;
   }
 
@@ -73,6 +75,7 @@ function askUser(){
     alert("Try again and type properly. Program is Case Sensitive. Refresh to startb again.");
     createCanvas(error.width, error.height);
     image_to_draw = error;
+    errorDisplay = true;
   }
 
 }
@@ -84,8 +87,8 @@ function setup() {
   askUser();
 
   //Calculate the number of Rows and Columns for the grid
-  Rows = Math.ceil(height/CELL_SIZE);
-  Columns = Math.ceil(width/CELL_SIZE);
+  Rows = Math.ceil(image_to_draw.height/CELL_SIZE);
+  Columns = Math.ceil(image_to_draw.width/CELL_SIZE);
   grid = generateRandomGrid(Columns,Rows);
 
   // add player to the grid
@@ -118,16 +121,17 @@ function movePlayer(x,y){
 }
 
 function displaygrid(){
+  //Display either empty grid or the image to play
   for (let y = 0; y < Rows; y++){
     for (let x = 0; x < Columns; x++){
       if (grid[y][x] === 0){
         fill("white");
-        rect(x*CELL_SIZE,y*CELL_SIZE,CELL_SIZE);
+        square(x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE);
       }
 
       if(grid[y][x] === PLAYER_TILE){
         rect(x*CELL_SIZE,y*CELL_SIZE,CELL_SIZE);
-        copy_image(x,y,image_to_draw);
+        copy_image(x, y, image_to_draw);
       }
     }
   }
@@ -179,15 +183,36 @@ function movement(){
   }
 }
 
+function keyPressed(){
+  
+  //Click to change drawings you want to view
+
+  if(key === "1" && !errorDisplay){
+    createCanvas(mona_lisa.width, mona_lisa.height);
+    image_to_draw = mona_lisa;
+  }
+
+  if(key === "2" && !errorDisplay){
+    createCanvas(starry_night.width, starry_night.height);
+    image_to_draw = starry_night;
+  }
+
+  if(key === "3" && !errorDisplay){
+    createCanvas(earring.width, earring.height);
+    image_to_draw = earring;
+  }
+
+  if(key === "4" && !errorDisplay){
+    createCanvas(last_supper.width, last_supper.height);
+    image_to_draw = last_supper;
+  }
+}
+
 
 function copy_image(some_x,some_y,some_image){
   //Copies image from some source image onto the canvas
   
-  copy(some_image,some_x*CELL_SIZE, some_y* CELL_SIZE, CELL_SIZE, CELL_SIZE, some_x*CELL_SIZE,
+  copy(some_image, some_x*CELL_SIZE, some_y* CELL_SIZE, CELL_SIZE, CELL_SIZE, some_x*CELL_SIZE,
     some_y*CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
 }
-
-
-
-
-
