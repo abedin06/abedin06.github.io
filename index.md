@@ -15,6 +15,7 @@
 - [Game of Life](game-of-life)
 - [Rectangle Grid](rectangle-grid)
 - [Walker OOP](walker-oop)
+- [Fireworks OOP](fireworks-oop)
 
   
 
