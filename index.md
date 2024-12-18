@@ -19,7 +19,8 @@
 - [Connected Nodes OOP](nodes)
 - [Collide 2D Demo](collide)
 - [Local Storage Demo](local-storage)
-
+- [Inheritance demo](inheritance)
+- [Fractal Circles](fractal-circle)
   
 
 ## Projects
