@@ -21,6 +21,7 @@
 - [Local Storage Demo](local-storage)
 - [Inheritance demo](inheritance)
 - [Fractal Circles](fractal-circle)
+- [Fractal triangle](fractal-triangle)
   
 
 ## Projects

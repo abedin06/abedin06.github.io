@@ -36,7 +36,7 @@ class Particle{
 }
 
 let theFireworks = [];
-const NUMBER_PER_CLICK = 500;
+const NUMBER_PER_CLICK = 250;
 
 
 
